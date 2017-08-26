@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.not2excel.api</groupId>
-    <version>3.1.0</version>
     <artifactId>BukkitCommandAPI</artifactId>
+    <version>3.1.1</version>
     <packaging>jar</packaging>
 
     <properties>
