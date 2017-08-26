@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandManager {
 
     private final static boolean DEBUG = false;
-    public static CommandManager instance;
+    private static CommandManager instance;
     private final Plugin plugin;
     private final Map<Integer, List<QueuedCommand>> queuedCommands = new ConcurrentHashMap<>();
     private final Map<String, RegisteredCommand> registeredCommands = new ConcurrentHashMap<>();
@@ -290,7 +290,7 @@ public class CommandManager {
 
         if (getCommandMap().getCommand(command.getName()) == null) {
             getCommandMap().register(this.plugin.getName(), command);
-            this.logger.log("Registered command '" + command.getName() + '\'');
+            this.logger.log("Registered command '" + command.getName() + '\'' + " by " + this.plugin.getName());
         }
         else {
             this.logger.log("Failed to registering command '" + command.getName() +
