@@ -147,11 +147,12 @@ public class ChildCommand extends ParentCommand {
 
     String getDisplayFlagDesc() {
         if (!this.flags.isEmpty()) {
-            final StringBuilder flagsDescBuilder = new StringBuilder(ChatColor.GRAY + "\n");
+            final StringBuilder flagsDescBuilder = new StringBuilder("\n");
 
             final Flag[] flags1 = this.commandHandler.flags();
             for (int i = 0; i < flags1.length; i++) {
-                flagsDescBuilder.append("     ").append(flags1[i].usage());
+                flagsDescBuilder.append("     ").append(ChatColor.DARK_AQUA).append('-').append(flags1[i].flag())
+                                .append(' ').append(ChatColor.GRAY).append(flags1[i].usage());
                 if (i + 1 < flags1.length) {
                     flagsDescBuilder.append("\n");
                 }
