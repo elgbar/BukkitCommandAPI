@@ -5,10 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.not2excel.api</groupId>
-    <artifactId>CommandAPI</artifactId>
     <version>3.1.0</version>
+    <artifactId>BukkitCommandAPI</artifactId>
     <packaging>jar</packaging>
-    <name>CommandAPI</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +24,7 @@
     </distributionManagement>
 
     <build>
-        <finalName>CommandAPI</finalName>
+        <finalName>BukkitCommandAPI</finalName>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <resources>
             <resource>
@@ -70,7 +69,7 @@
                     <includes>
                         <include>**/*</include>
                     </includes>
-                    <repositoryName>CommandAPI</repositoryName>      <!-- github repo name -->
+                    <repositoryName>BukkitCommandAPI</repositoryName>      <!-- github repo name -->
                     <repositoryOwner>kh498</repositoryOwner>    <!-- github username  -->
                 </configuration>
                 <executions>
@@ -98,14 +97,6 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--CraftBukkit 1.8.8 -->
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
