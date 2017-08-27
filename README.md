@@ -4,8 +4,8 @@ CommandAPI
 This is a CommandAPI that is developed to avoid having to statically register any command whether using reflection and a CommandExecutor, or simply putting the commands into my plugin.yml. This is a purely annotation based API.
 
 ## Features
-* Easy registation and managment of commands
-* Advanced automated helpscreen (see pictures below)
+* Easy registration and management of commands
+* Advanced automated help screen (see pictures below)
 * Automated tab completer (for now only first argument, to be improved)
 * Support to use flags
 * Maven support
@@ -16,19 +16,15 @@ This is a CommandAPI that is developed to avoid having to statically register an
 ```
 <repository>
     <id>CommandAPI</id>
-    <url>https://raw.github.com/kh498/CommandAPI/mvn-repo/</url>
-    <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-    </snapshots>
+    <url>https://raw.github.com/kh498/BukkitCommandAPI/mvn-repo/</url>
 </repository>
 ```
 
 ```
 <dependency>
     <groupId>com.not2excel.api</groupId>
-    <artifactId>CommandAPI</artifactId>
-    <version>3.1.0</version>
+    <artifactId>BukkitCommandAPI</artifactId>
+    <version>3.1.1</version>
 </dependency>
 ```
 
@@ -68,17 +64,17 @@ To use CommandAPI you also need to shade it into your project to do so add the f
 ## How to use
 Using this CommandAPI is super simple, and requires minimum 3 lines to register the commands, and obviously the commands themselves.
 
-First in either your onEnable() or onLoad() you're going to want to do this:
+First in either your `onEnable()` or `onLoad()` you're going to want to do this:
 ```java
-final CommandManager commandManager = new CommandManager(plugin); //where plugin is a plugin instance
+final CommandManager commandManager = new CommandManager(plugin); //where `plugin` is a plugin instance
 // Automatically finds all classes that implements the CommandListener.class and registers their commands
 commandManager.registerCommands();
 //registers a generated help topic to bukkit
-commandManager.registerHelp();
 //so the /help PluginName displays our plugin's registered commands
+commandManager.registerHelp();
 ```
 
-## attribute values explained
+## Attribute values of _CommandHandler_ explained
 
 __command__: _(String)_ This is the name of the command. eg command /test will have _command = "test"_
 
@@ -98,12 +94,22 @@ __max__: _(int, default: -1)_ The maximum number og arguments this command can h
 
 __playerOnly__: _(boolean, default: false)_ If only players can excecute this command
 
-__flags__: _(String, default: "")_ The flags of this command (see flags example below)
+__flags__: _(Flag, default: {})_ The flags of this command (see flags example below)
 
 __strictArgs__: _(boolean, default: false)_ If only known subcommand are allowed as arguments (see first example below)
 
 __flagDesc__: _(String[], default: {})_ The description of what each flag does (see flags example below)
 
+## Attribute values of _Flag_ explained
+
+__flags__: _(char)_ The character to use for this flag. If the char is '*' (asterisk) then this character will be used as a select
+                         everything flag.
+                         
+__aliases__: _(String)_ An explanation of what this flag does.
+
+__permission__: _(String, default: "")_ The permission a players need to execute the flag
+
+__noPermission__: _(String, default: "You don't have permission use this flag.")_ The string displayed when the player doesn't have the permission to use the flag
 
 ## Example commands
 Example commands to be registered: Here are some test commands to display how commands should be written to allow registration.  CommandListener is a required interface for any class you wish commands to be registered from.  This is to allow shrinkage of classes searched for commands, and increase registration time.
@@ -137,8 +143,6 @@ public class TestCommand implements CommandListener //CommandListener is require
                     noPermission = "No access!",
                     aliases = {"2", "testing"},
                     usage = "<player>",
-                    flags = "f",
-                    flagDesc = "Activate some feature",
                     description = "Testing out (almost) all of the CommandHandler's attribute values")
     public static void testingCommand2(final CommandInfo info) {
         info.getSender().sendMessage("Test2 worked");
@@ -147,27 +151,24 @@ public class TestCommand implements CommandListener //CommandListener is require
     /*
      * A flag is a single character such as {@code -f} that will alter the behaviour of the command. flags can only
      * be any english character (a-z and A-Z) including * as a catch all.
+     * 
+     * Both the flag and usage option is required.
      *
-     * Defines if there can be arbitrary variables. If set to true the command cannot have any unknown variables.
-     * The arguments will either be a subcommand or a flag, if not an error is thrown. This means that flags are
-     * ignored and can be used.
+     * Only valid flags will be passed you your method. If you specify the permission to be anything other than an empty string
+     * then this will also be checked. In other words you do not need to check if the flags are valid or if the player has
+     * permission, only if the flags are there.
      *
-     * It is suggested that this is set to true if you only want flags as arguments.
-     */
-    @CommandHandler(command = "test.reset",
-                    flags = "kr",
-                    flagDesc = {"-k resets kingdoms", "-r resets reficules"},
-                    strictArgs = true,
-                    // only allow flags as arguments
-                    description = "resets stuff!")
+     * It is suggested that this is set `strictArgs` true if you only want flags as arguments. As this will then show the
+     * detailed usage of the flags. 
+          */
      @CommandHandler(command = COMMAND + ".reset",
-        flags = {@Flag(flag = 'k', usage = "-k resets kingdoms"), 
-                 @Flag(flag = 'r', usage = "-r resets reficules")},
+        flags = {@Flag(flag = 'k', usage = "Resets kingdoms", permission = "kingdom.reset", noPermission = "Nice try punk"), 
+                 @Flag(flag = 'r', usage = "Resets reficules")},
         strictArgs = true,
         description = "resets stuff!")
     public static void testingCommand3(final CommandInfo info) {
         //user gave the argument -f or -*
-        if (info.hasFlag('k')) {
+        if (info.hasFlag('k') ) {
             // Do some resetting
         }
         //returns true if one of the chars in the input string matches one of the flags the user gave
