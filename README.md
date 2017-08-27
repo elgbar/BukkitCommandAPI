@@ -1,14 +1,5 @@
-CommandAPI 
+BukkitCommandAPI 
 ==========
-
-# This repo will not update anymore!
-New link: https://github.com/kh498/BukkitCommandAPI
-
-.
-
-.
-
-.
 
 ## About
 This is a CommandAPI that is developed to avoid having to statically register any command whether using reflection and a CommandExecutor, or simply putting the commands into my plugin.yml. This is a purely annotation based API.
