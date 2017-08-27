@@ -1,6 +1,7 @@
 package com.not2excel.api.command.objects;
 
 import com.not2excel.api.command.CommandHandler;
+import com.not2excel.api.command.Flag;
 import com.not2excel.api.command.handler.CommandException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,9 +9,10 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -29,7 +31,7 @@ public class CommandInfo {
     private final String usage;
     private final String permission;
     private final boolean playersOnly;
-    private final Set<Character> flags;
+    private final Map<Character, Flag> flags;
     private List<String> args;
     private boolean hasAsteriskFlag;
     private String fullUsage;
@@ -52,15 +54,13 @@ public class CommandInfo {
         }
         else {
             this.playersOnly = commandHandler.playerOnly();
-
-
         }
 
         if (matchesFlagPattern(command)) {
             throw new IllegalArgumentException("A sub command cannot be a valid flag!");
         }
 
-        this.flags = new HashSet<>();
+        this.flags = new HashMap<>();
         /*
          Iterate through tempArgs and look for flags. (eks -f or -R)
          */
@@ -72,7 +72,7 @@ public class CommandInfo {
                 if (!this.hasAsteriskFlag && arg.charAt(1) == '*') {
                     this.hasAsteriskFlag = true;
                 }
-                this.flags.add(arg.charAt(1));
+                this.flags.put(arg.charAt(1), getFlag(arg.charAt(1)));
             }
         }
     }
@@ -374,8 +374,36 @@ public class CommandInfo {
     /**
      * @return All flags found in the arguments of the command
      */
-    public Set<Character> getFlags() {
-        return this.flags;
+    public Collection<Character> getFlags() {
+        return this.flags.keySet();
+    }
+
+    /**
+     * A slow way of getting a Flag object
+     *
+     * @param flagC
+     *
+     * @return A Flag that is defined in the CommandHandler Annotation of the command, null otherwise
+     */
+    public Flag getFlag(final char flagC) {
+        for (final Flag flag : this.commandHandler.flags()) {
+            if (flag.flag() == flagC) {
+                return flag;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Fast way of getting a Flag object
+     *
+     * @param flag
+     *     the flag char of the flag
+     *
+     * @return A Flag that is present in the executed command, otherwise null
+     */
+    public Flag getPresentFlag(final char flag) {
+        return this.flags.get(flag);
     }
 
     /**
@@ -386,7 +414,7 @@ public class CommandInfo {
      * otherwise.
      */
     public boolean hasFlag(final char flag) {
-        return this.hasAsteriskFlag || this.flags.contains(flag);
+        return this.hasAsteriskFlag || this.flags.keySet().contains(flag);
     }
 
     /**
@@ -399,10 +427,8 @@ public class CommandInfo {
         if (this.hasAsteriskFlag) {
             return true;
         }
-
-
         for (final char c : s.toCharArray()) {
-            if (this.flags.contains(c)) {
+            if (this.flags.keySet().contains(c)) {
                 return true;
             }
         }
