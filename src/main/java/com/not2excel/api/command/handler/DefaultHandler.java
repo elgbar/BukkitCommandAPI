@@ -142,7 +142,7 @@ public class DefaultHandler implements Handler {
         }
     }
 
-    @Flag(flag = '*')
+    @Flag(flag = '*', usage = "Select all options")
     private Flag defaultAsteriskFlag() {
         try {
             return getClass().getDeclaredMethod("defaultAsteriskFlag").getAnnotation(Flag.class);

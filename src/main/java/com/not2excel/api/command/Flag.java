@@ -19,6 +19,11 @@ public @interface Flag {
     char flag();
 
     /**
+     * An explanation of what this flag does.
+     */
+    String usage();
+
+    /**
      * The permission needed to run the command with this flag.
      */
     String permission() default "";
@@ -28,8 +33,4 @@ public @interface Flag {
      */
     String noPermission() default "You don't have permission use this flag.";
 
-    /**
-     * An explanation of what this flag does.
-     */
-    String usage() default "";
 }
