@@ -135,9 +135,9 @@ public class ChildCommand extends ParentCommand {
     }
 
     String getDisplayFlags() {
-        if (this.displayFlag.isEmpty() && !getFlags().isEmpty()) {
+        if (this.displayFlag.isEmpty() && !this.flags.isEmpty()) {
             final StringBuilder flagsBuilder = new StringBuilder().append(ChatColor.GOLD);
-            for (final char c : this.getFlags()) {
+            for (final char c : this.flags) {
                 flagsBuilder.append('-').append(c).append(' ');
             }
             this.displayFlag = flagsBuilder.toString();
@@ -188,7 +188,6 @@ public class ChildCommand extends ParentCommand {
     public String toString() {
         return "ChildCommand{" + "command='" + getCommand() + '\'' + ", usage='" + getUsage() + '\'' +
                ", description='" + getDescription() + '\'' + ", permission='" + getPermission() + '\'' + ", flags='" +
-               getFlags() + '\'' + ", isAlias='" + this.isAlias + '\'' + '}';
+               this.flags + '\'' + ", isAlias='" + this.isAlias + '\'' + '}';
     }
-
 }
