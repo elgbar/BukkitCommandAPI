@@ -56,7 +56,7 @@ public class CommandInfo {
             this.playersOnly = commandHandler.playerOnly();
         }
 
-        if (matchesFlagPattern(command)) {
+        if (isFlag(command)) {
             throw new IllegalArgumentException("A sub command cannot be a valid flag!");
         }
 
@@ -68,7 +68,7 @@ public class CommandInfo {
             if (arg.length() == 0) {
                 continue;
             }
-            if (matchesFlagPattern(arg)) {
+            if (isFlag(arg)) {
                 if (!this.hasAsteriskFlag && arg.charAt(1) == '*') {
                     this.hasAsteriskFlag = true;
                 }
@@ -83,7 +83,7 @@ public class CommandInfo {
      *
      * @return If str is formatted as a flag
      */
-    public static boolean matchesFlagPattern(final String str) {
+    public static boolean isFlag(final String str) {
         return FLAG_PATTERN.matcher(str).matches();
     }
 

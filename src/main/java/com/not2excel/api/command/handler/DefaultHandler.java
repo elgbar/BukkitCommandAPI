@@ -128,7 +128,7 @@ public class DefaultHandler implements Handler {
 
         if (ch.strictArgs()) {
             for (final String arg : info.getArgs()) {
-                if (!CommandInfo.matchesFlagPattern(arg)) {
+                if (!CommandInfo.isFlag(arg)) {
                     sendHelpScreen(info, "Unknown subcommand: " + arg);
                     return;
                 }
