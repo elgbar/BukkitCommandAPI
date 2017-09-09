@@ -201,11 +201,48 @@ public class CommandInfo {
         return this.args.get(index);
     }
 
+    /**
+     * @param index
+     *     The argument you want
+     * @param defaultString
+     *     The string to return if there is no argument at the index location
+     *
+     * @return the argument at {@code index} or {@code defaultString}
+     */
     public String getIndex(final int index, final String defaultString) {
         if (index >= this.args.size() || index < 0) {
             return defaultString;
         }
         return this.args.get(index);
+    }
+
+    /**
+     * Clone of {@link #getIndex(int)}
+     *
+     * @param index
+     *     The argument you want
+     *
+     * @return the argument at {@code index}
+     *
+     * @throws CommandException
+     *     if {@code index} is greater than the size of arguments
+     */
+    public String getArg(final int index) throws CommandException {
+        return getIndex(index);
+    }
+
+    /**
+     * Clone of {@link #getIndex(int, String)}
+     *
+     * @param index
+     *     The argument you want
+     * @param defaultString
+     *     The string to return if there is no argument at the index location
+     *
+     * @return the argument at {@code index} or {@code defaultString}
+     */
+    public String getArg(final int index, final String defaultString) {
+        return getIndex(index, defaultString);
     }
 
     /**
@@ -433,6 +470,22 @@ public class CommandInfo {
             }
         }
         return false;
+    }
+
+    /**
+     * @param index
+     *     The index to check
+     *
+     * @return if an argument at index {@code index} is a flag
+     */
+    public boolean isFlag(final int index) {
+        final String indexStr;
+        try {
+            indexStr = getIndex(index);
+        } catch (final CommandException e) {
+            return false;
+        }
+        return isFlag(indexStr);
     }
 
     /**
