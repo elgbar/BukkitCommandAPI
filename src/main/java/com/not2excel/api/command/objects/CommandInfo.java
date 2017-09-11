@@ -345,23 +345,13 @@ public class CommandInfo {
      * @param index
      *     The argument you want
      *
-     * @return the argument at {@code index} as online player
-     *
-     * @throws CommandException
-     *     if {@code index} is invalid or the argument is not an online player
+     * @return The argument at {@code index} as online player or {@code null} if not found
      */
-    public Player getOnlinePlayer(final int index) throws CommandException {
+    public Player getOnlinePlayer(final int index) {
         if (index >= this.args.size() || index < 0) {
-            throw new CommandException(this.sender, ChatColor.RED + "Invalid index number");
+            return null;
         }
-        final Player returnValue;
-        try {
-            returnValue = Bukkit.getPlayer(this.args.get(index));
-        } catch (final NumberFormatException e) {
-            throw new CommandException(this.sender, ChatColor.RED + "Index " + ChatColor.GOLD + "%d" + ChatColor.RED +
-                                                    " is not a online player", index);
-        }
-        return returnValue;
+        return Bukkit.getPlayer(this.args.get(index));
     }
 
     /**
@@ -370,23 +360,13 @@ public class CommandInfo {
      * @param index
      *     The argument you want
      *
-     * @return the argument at {@code index} as offline player
-     *
-     * @throws CommandException
-     *     if {@code index} is invalid or the argument is not a offline player
+     * @return The argument at {@code index} as offline player or {@code null} if not found
      */
-    public OfflinePlayer getOfflinePlayer(final int index) throws CommandException {
+    public OfflinePlayer getOfflinePlayer(final int index) {
         if (index >= this.args.size() || index < 0) {
-            throw new CommandException(this.sender, ChatColor.RED + "Invalid index number");
+            return null;
         }
-        final OfflinePlayer returnValue;
-        try {
-            returnValue = Bukkit.getOfflinePlayer(this.args.get(index));
-        } catch (final NumberFormatException e) {
-            throw new CommandException(this.sender, ChatColor.RED + "Index " + ChatColor.GOLD + "%d" + ChatColor.RED +
-                                                    " is not a player", index);
-        }
-        return returnValue;
+        return Bukkit.getOfflinePlayer(this.args.get(index));
     }
 
     public String joinArgs(final int index) throws CommandException {
@@ -480,12 +460,8 @@ public class CommandInfo {
      */
     public boolean isFlag(final int index) {
         final String indexStr;
-        try {
-            indexStr = getIndex(index);
-        } catch (final CommandException e) {
-            return false;
-        }
-        return isFlag(indexStr);
+        indexStr = getIndex(index, null);
+        return indexStr != null && isFlag(indexStr);
     }
 
     /**

@@ -25,7 +25,7 @@ This is a CommandAPI that is developed to avoid having to statically register an
 <dependency>
     <groupId>com.not2excel.api</groupId>
     <artifactId>BukkitCommandAPI</artifactId>
-    <version>3.1.1</version>
+    <version>3.1.3</version>
 </dependency>
 ```
 
