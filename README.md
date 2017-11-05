@@ -16,8 +16,8 @@ This is a CommandAPI that is developed to avoid having to statically register an
 
 ```
 <repository>
-    <id>CommandAPI</id>
-    <url>https://raw.github.com/kh498/BukkitCommandAPI/mvn-repo/</url>
+    <id>BukkitCommandAPI</id>
+    <url>https://raw.githubusercontent.com/kh498/BukkitCommandAPI/mvn-repo/</url>
 </repository>
 ```
 
@@ -51,14 +51,13 @@ To use CommandAPI you also need to shade it into your project to do so add the f
                 <minimizeJar>true</minimizeJar> <!-- Only include packages that you are using Note: Requires Java 1.5 or higher. -->
                 <artifactSet>
                     <includes>
-                        <include>com.not2excel.api:CommandAPI</include>
+                        <include>com.not2excel.api:BukkitCommandAPI</include>
                     </includes>
                 </artifactSet>
             </configuration>
         </plugin>
     </plugins>
-</build>
-            
+</build>       
 ```
 
 
