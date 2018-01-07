@@ -14,12 +14,8 @@ This is a CommandAPI that is developed to avoid having to statically register an
 
 ## Maven/Install
 
-```
-<repository>
-    <id>BukkitCommandAPI</id>
-    <url>https://raw.githubusercontent.com/kh498/BukkitCommandAPI/mvn-repo/</url>
-</repository>
-```
+Add [my repo](https://github.com/kh498/maven2)
+
 
 ```
 <dependency>
@@ -48,7 +44,7 @@ To use CommandAPI you also need to shade it into your project to do so add the f
                 </execution>
             </executions>
             <configuration>
-                <minimizeJar>true</minimizeJar> <!-- Only include packages that you are using Note: Requires Java 1.5 or higher. -->
+                <minimizeJar>true</minimizeJar> <!-- Only include packages that you are using. Note: Requires Java 1.5 or higher. -->
                 <artifactSet>
                     <includes>
                         <include>com.not2excel.api:BukkitCommandAPI</include>
@@ -64,7 +60,7 @@ To use CommandAPI you also need to shade it into your project to do so add the f
 ## How to use
 Using this CommandAPI is super simple, and requires minimum 3 lines to register the commands, and obviously the commands themselves.
 
-First in either your `onEnable()` or `onLoad()` you're going to want to do this:
+First in either your `onEnable()` you need to setup the CommandManager:
 ```java
 final CommandManager commandManager = new CommandManager(plugin); //where `plugin` is a plugin instance
 // Automatically finds all classes that implements the CommandListener.class and registers their commands
@@ -78,23 +74,23 @@ commandManager.registerHelp();
 
 __command__: _(String)_ This is the name of the command. eg command /test will have _command = "test"_
 
-__aliases__: _(String[], default: {})_ A list of aliases for this command
+__aliases__: _(String[], default: {})_ A list of aliases for the command
 
-__permission__: _(String, default: "")_ The permission a players need to execute the command
+__permission__: _(String, default: "")_ The permission needed to execute the command
 
-__noPermission__: _(String, default: "You don't have permission to do that.")_ The string displayed when the player doesn't have the permission for this command
+__noPermission__: _(String, default: "You don't have permission to do that.")_ The string displayed when the player doesn't have the permission for the command
 
 __usage__: _(String, default: "")_ The arbitrary arguments of the command
 
 __description__: _(String, default: "")_ A description of what the command does
 
-__min__: _(int, default: 0)_ The minimum number of arguments this command can have
+__min__: _(int, default: 0)_ The minimum number of arguments the command can have
 
-__max__: _(int, default: -1)_ The maximum number og arguments this command can have
+__max__: _(int, default: -1)_ The maximum number og arguments the command can have
 
-__playerOnly__: _(boolean, default: false)_ If only players can excecute this command
+__playerOnly__: _(boolean, default: false)_ If only players can execute the command
 
-__flags__: _(Flag, default: {})_ The flags of this command (see flags example below)
+__flags__: _(Flag, default: {})_ The flags of the command (see flags example below)
 
 __strictArgs__: _(boolean, default: false)_ If only known subcommand are allowed as arguments (see first example below)
 
@@ -102,10 +98,10 @@ __flagDesc__: _(String[], default: {})_ The description of what each flag does (
 
 ## Attribute values of _Flag_ explained
 
-__flags__: _(char)_ The character to use for this flag. If the char is '*' (asterisk) then this character will be used as a select
+__flags__: _(char)_ The character to use for the flag. If the char is '*' (asterisk) then this character will be used as a select
                          everything flag.
                          
-__aliases__: _(String)_ An explanation of what this flag does.
+__usage__: _(String)_ An explanation of what the flag does.
 
 __permission__: _(String, default: "")_ The permission a players need to execute the flag
 
@@ -137,11 +133,12 @@ public class TestCommand implements CommandListener //CommandListener is require
     /*
      * A dot in the command string marks this as a sub command. It can go infinitely deep.
      * Do not have the command and/or subcommand in the usage, that is built in.
+     * 
      */
     @CommandHandler(command = "test.test2",
                     permission = "test.test2",
                     noPermission = "No access!",
-                    aliases = {"2", "testing"},
+                    aliases = {"2", "testing", "test.2"},
                     usage = "<player>",
                     description = "Testing out (almost) all of the CommandHandler's attribute values")
     public static void testingCommand2(final CommandInfo info) {
