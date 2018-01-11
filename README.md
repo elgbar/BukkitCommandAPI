@@ -21,7 +21,7 @@ Add [my repo](https://github.com/kh498/maven2)
 <dependency>
     <groupId>com.not2excel.api</groupId>
     <artifactId>BukkitCommandAPI</artifactId>
-    <version>3.1.3</version>
+    <version>3.1.4</version>
 </dependency>
 ```
 
