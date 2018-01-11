@@ -39,7 +39,7 @@ public class StringUtil {
         }
         else {
             for (int i = 0; i < length; i++) {
-                final char c = (char) (min + (int) (Math.random() * ((max - min) + 1)));
+                final char c = (char) (min + random.nextInt((max - min) + 1));
                 stringBuilder.append(c);
             }
         }
