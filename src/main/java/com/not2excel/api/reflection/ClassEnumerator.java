@@ -94,11 +94,12 @@ public class ClassEnumerator {
      * Returns the class array of all classes within the current Running Jar Utilizes the code source which could be a
      * Jar file or could just be a directory of class files
      *
+     * @param object
+     *     An object from the jar of which to get the classes
+     *
      * @return class array
      */
-    @SuppressWarnings("resource")
     public Class<?>[] getClassesFromThisJar(final Object object) {
-        final List<Class<?>> classes = new ArrayList<>();
         ClassLoader classLoader = null;
         URI uri = null;
         try {
@@ -116,7 +117,7 @@ public class ClassEnumerator {
                 "No classLoader for " + this.getClass().getProtectionDomain().getCodeSource().getLocation());
         }
         final File file = new File(uri);
-        classes.addAll(getClassesFromLocation(file));
+        final List<Class<?>> classes = new ArrayList<>(getClassesFromLocation(file));
         return classes.toArray(new Class[classes.size()]);
     }
 

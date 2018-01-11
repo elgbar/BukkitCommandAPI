@@ -47,11 +47,10 @@ public class StringUtil {
     }
 
     /**
-     * Capitalizes the first letter of a string and lower cases the rest
-     *
      * @param string
+     *     The string to capitalize
      *
-     * @return
+     * @return Capitalizes the first letter of a string and lower cases the rest
      */
     public static String capitalizeFirstLetterOnly(final String string) {
         return string.substring(0, 1).toUpperCase().concat(string.substring(1).toLowerCase());

@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 public @interface CommandHandler {
 
     /**
-     * Label of the command Sub-commands have '.' to split the child from the parent /test => test /test set =>
+     * Label of the command Sub-commands have '.' to split the child from the parent /test =&gt; test /test set =&gt;
      * test.set
      *
      * @return command label
@@ -22,7 +22,7 @@ public @interface CommandHandler {
     String command();
 
     /**
-     * Aliases of the command /test2 => /test /test set2 => /test set
+     * Aliases of the command /test2 =&gt; /test /test set2 =&gt; /test set
      *
      * @return command aliases
      */
@@ -58,14 +58,14 @@ public @interface CommandHandler {
     String usage() default "";
 
     /**
-     * Description of command /test => Testing the dynamic CommandAPI
+     * Description of command /test =&gt; Testing the dynamic CommandAPI
      *
      * @return command description
      */
     String description() default "";
 
     /**
-     * Minimum arguments the command must have must be > 0
+     * Minimum arguments the command must have must be &gt; 0
      *
      * @return min number of args
      */
@@ -93,6 +93,8 @@ public @interface CommandHandler {
      * asteriskFlag = false}
      * <p>
      * Flags can only be any english character (a-z and A-Z) including '*' (asterisks) as a catch all.
+     *
+     * @return The flags available for this command
      */
     Flag[] flags() default {};
 
@@ -100,6 +102,8 @@ public @interface CommandHandler {
      * Defines if asterisks (*) can be used as a catch all. If this is set to false but there is declared a asterisk
      * flag with the {@code flags()} attribute that flag will function as an asterisk flag. Note that it is not
      * necessary to enable this to override the permission of the asterisk flag.
+     *
+     * @return if asterisks is a catch all flag
      */
     boolean asteriskFlag() default true;
 
@@ -109,6 +113,8 @@ public @interface CommandHandler {
      * can be used.
      * <p>
      * It is suggested that this is set to true if you only want flags as args.
+     *
+     * @return if there can be arbitrary variables, or only known sub-commands is valid
      */
     boolean strictArgs() default false;
 }

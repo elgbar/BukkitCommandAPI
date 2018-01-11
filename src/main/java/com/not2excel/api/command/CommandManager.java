@@ -230,6 +230,9 @@ public class CommandManager {
     /**
      * This is here for legacy reasons. Wont do anything upon runtime.
      *
+     * @param classObject
+     *     UNUSED
+     *
      * @deprecated Use {@link #registerCommands() } instead as it will load find all classes that has {@link
      * CommandListener} implemented.
      */

@@ -13,23 +13,25 @@ import java.lang.annotation.Target;
 public @interface Flag {
 
     /**
-     * The character to use for this flag. If the char is '*' (asterisk) then this character will be used as a select
+     * If the char is '*' (asterisk) then this character will be used as a select
      * everything flag.
+     *
+     * @return The character to use for this flag.
      */
     char flag();
 
     /**
-     * An explanation of what this flag does.
+     * @return An explanation of what this flag does.
      */
     String usage();
 
     /**
-     * The permission needed to run the command with this flag.
+     * @return The permission needed to run the command with this flag.
      */
     String permission() default "";
 
     /**
-     * Message to send to CommandSender if they do not have permission to use this flag
+     * @return Message to send to CommandSender if they do not have permission to use this flag
      */
     String noPermission() default "You don't have permission use this flag.";
 

@@ -399,6 +399,7 @@ public class CommandInfo {
      * A slow way of getting a Flag object
      *
      * @param flagC
+     *     the char of the flag to get
      *
      * @return A Flag that is defined in the CommandHandler Annotation of the command, null otherwise
      */
