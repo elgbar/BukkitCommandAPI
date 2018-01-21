@@ -96,7 +96,7 @@ public class RegisteredCommand extends ParentCommand implements CommandExecutor,
     }
 
     @Override
-    public void handleCommand(final CommandInfo info) throws CommandException {
+    public void handleCommand(final CommandInfo info) {
         try {
             this.getMethod().invoke(this.queuedCommand.getObject(), info);
         } catch (IllegalAccessException | InvocationTargetException e) {

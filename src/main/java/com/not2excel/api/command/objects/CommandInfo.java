@@ -61,9 +61,8 @@ public class CommandInfo {
         }
 
         this.flags = new HashMap<>();
-        /*
-         Iterate through tempArgs and look for flags. (eks -f or -R)
-         */
+
+        //Iterate through tempArgs and look for flags. (eks -f or -R)
         for (final String arg : cmdArgs) {
             if (arg.length() == 0) {
                 continue;

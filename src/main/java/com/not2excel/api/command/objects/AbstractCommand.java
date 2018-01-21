@@ -34,8 +34,7 @@ public class AbstractCommand extends Command {
         final RegisteredCommand regCmd = registeredCmds.get(this.getName());
 
         if (regCmd != null) {
-            final Set<String> subCmdsSet = new TreeSet<>();
-            subCmdsSet.addAll(regCmd.getNoAliasesChildCommands().keySet());
+            final Set<String> subCmdsSet = new TreeSet<>(regCmd.getNoAliasesChildCommands().keySet());
 
             if (!subCmdsSet.contains("help")) {
                 subCmdsSet.add("help");

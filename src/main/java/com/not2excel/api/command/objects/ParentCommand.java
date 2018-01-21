@@ -21,10 +21,8 @@ public class ParentCommand {
      *     The child of this parent
      */
     public void addChild(final String subCommand, final ChildCommand child) {
-        {
-            synchronized (this.childCommands) {
-                this.childCommands.put(subCommand.toLowerCase(), child);
-            }
+        synchronized (this.childCommands) {
+            this.childCommands.put(subCommand.toLowerCase(), child);
         }
     }
 

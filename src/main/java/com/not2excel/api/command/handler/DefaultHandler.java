@@ -27,11 +27,10 @@ public class DefaultHandler implements Handler {
     }
 
     @Override
-    public void handleCommand(final CommandInfo info) throws CommandException {
+    public void handleCommand(final CommandInfo info) {
         final List<String> args = info.getArgs();
         final ParentCommand parentCommand = info.getParentCommand();
         if (args.size() == 0 || parentCommand.getAllChildCommands().size() == 0) {
-            //noinspection VariableNotUsedInsideIf
             if (this.queue != null) {
                 sendCommand(info);
             }
@@ -49,11 +48,7 @@ public class DefaultHandler implements Handler {
             final ChildCommand child = parentCommand.getAllChildCommands().get(args.get(0));
             if (child == null) {
                 //needed to send parent command instead of throwing errors so that parent command can process args
-                try {
-                    sendCommand(info);
-                } catch (final CommandException e) {
-                    e.printStackTrace();
-                }
+                sendCommand(info);
                 return;
             }
             if (!child.checkPermission(info.getSender())) {
@@ -72,7 +67,7 @@ public class DefaultHandler implements Handler {
         }
     }
 
-    private void sendCommand(final CommandInfo info) throws CommandException {
+    private void sendCommand(final CommandInfo info) {
         final CommandHandler ch = this.queue.getMethod().getAnnotation(CommandHandler.class);
 
         if (ch.strictArgs() && info.getArgsLength() == 0 &&
